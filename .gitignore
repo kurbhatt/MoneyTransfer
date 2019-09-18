@@ -1,0 +1,16 @@
+# PROJECT SPECIFIC IGNORES
+
+target/
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# INTELLIJ IDEA IGNORES
+*.iml
+*.ipr
+*.iws
+.idea/
+
+classes/
