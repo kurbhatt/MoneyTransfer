@@ -30,7 +30,7 @@ public class AccountData {
         if(!getAccountMap().containsKey(to)){
             throw new Exception("Receiver account not found");
         }
-        getAccountMap().get(to).getCurrentBalance().add(amountToBeTransfer);
-        getAccountMap().get(from).getCurrentBalance().subtract(amountToBeTransfer);
+        getAccountMap().get(to).addBalance(amountToBeTransfer);
+        getAccountMap().get(from).deductBalance(amountToBeTransfer);
     }
 }

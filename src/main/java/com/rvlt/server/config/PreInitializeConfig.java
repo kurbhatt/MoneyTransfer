@@ -10,11 +10,11 @@ public class PreInitializeConfig {
 
     public static void initializeInMemoryAccounts(){
         try{
-            Account a = new Account(1111, new BigDecimal(1000.56, MathContext.DECIMAL32));
+            Account a = new Account(1111, new BigDecimal(1000.56));
             AccountData.addNewAccount(a);
-            a = new Account(2222, new BigDecimal(2000.78, MathContext.DECIMAL32));
+            a = new Account(2222, new BigDecimal(2000.78));
             AccountData.addNewAccount(a);
-            a = new Account(3333, new BigDecimal(1500.98, MathContext.DECIMAL32));
+            a = new Account(3333, new BigDecimal(1500.98));
             AccountData.addNewAccount(a);
             System.out.println(AccountData.getAccountMap().size());
         }catch (Exception e){

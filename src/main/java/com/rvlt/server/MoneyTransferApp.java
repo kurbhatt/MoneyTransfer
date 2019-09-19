@@ -12,7 +12,7 @@ import org.eclipse.jetty.http.HttpStatus;
 
 import io.javalin.Javalin;
 
-public class Hello {
+public class MoneyTransferApp {
     public static void main(String[] args) {
         TransferService s = new TransferService();
         Javalin app = Javalin.create(config -> {

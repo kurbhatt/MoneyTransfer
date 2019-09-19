@@ -1,6 +1,7 @@
 package com.rvlt.server.data.bean;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class Account {
 
@@ -29,5 +30,13 @@ public class Account {
 
     public void setCurrentBalance(BigDecimal currentBalance) {
         this.currentBalance = currentBalance;
+    }
+
+    public void addBalance(BigDecimal amount){
+        setCurrentBalance(getCurrentBalance().add(amount).setScale(2, RoundingMode.CEILING));
+    }
+
+    public void deductBalance(BigDecimal amount){
+        setCurrentBalance(getCurrentBalance().subtract(amount).setScale(2, RoundingMode.CEILING));
     }
 }
