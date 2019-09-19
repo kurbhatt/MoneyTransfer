@@ -16,11 +16,14 @@ public class MoneyTransferApp {
     public static void main(String[] args) {
         TransferService s = new TransferService();
         Javalin app = Javalin.create(config -> {
+            // initialize account data
             PreInitializeConfig.initializeInMemoryAccounts();
+            // request logger config
             config.requestLogger((ctx, ms)->{
                 System.out.println(ms);
             });
         }).start(7000);
+        // handle runtime exception
         app.exception(Exception.class, (e, ctx) ->{
             BaseStatus response = new BaseStatus();
             response.setStatus(Constants.RESPONSE_CODE_FAIL);
@@ -29,10 +32,12 @@ public class MoneyTransferApp {
             ctx.status(HttpStatus.INTERNAL_SERVER_ERROR_500);
         });
 
+        // simple get request for demonstration
         app.get("/", ctx -> {
             ctx.json(new Employee(10, "Keyur"));
             s.processRequest();
         });
+        // money transfer post api
         app.post("/transfer", ctx -> {
             TransferRequest data = ctx.bodyAsClass(TransferRequest.class);
             ctx.json(s.transferMoney(data));

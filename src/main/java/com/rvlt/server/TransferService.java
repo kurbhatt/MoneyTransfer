@@ -18,14 +18,18 @@ public class TransferService {
     public BaseStatus transferMoney(TransferRequest data) throws Exception {
         BaseStatus response = new BaseStatus();
         try{
+            // null validation for master data
             if(data.getFrom() == null || data.getTo() == null || data.getAmount() == null){
                 response.setStatus(Constants.RESPONSE_CODE_FAIL);
                 response.setMessage(Constants.RESPONSE_MESSAGE_FAIL);
             }
+            // call data store/db layer for amount transfer
             AccountData.transferMoney(data.getFrom(), data.getTo(), new BigDecimal(data.getAmount()).setScale(2, RoundingMode.CEILING), response);
+            // check if any issue then return
             if(!Objects.equals(response.getStatus(), Constants.RESPONSE_CODE_SUCCESS)){
                 return response;
             }
+            // if all well then success response
             response.setStatus(Constants.RESPONSE_CODE_SUCCESS);
             response.setMessage(Constants.RESPONSE_MESSAGE_SUCCESS);
         }catch(Exception e){
