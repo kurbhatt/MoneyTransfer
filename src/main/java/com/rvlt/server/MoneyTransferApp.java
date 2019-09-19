@@ -13,9 +13,15 @@ import org.eclipse.jetty.http.HttpStatus;
 import io.javalin.Javalin;
 
 public class MoneyTransferApp {
+    private static Javalin app;
+
     public static void main(String[] args) {
+        run();
+    }
+
+    public static void run(){
         TransferService s = new TransferService();
-        Javalin app = Javalin.create(config -> {
+        app = Javalin.create(config -> {
             // initialize account data
             PreInitializeConfig.initializeInMemoryAccounts();
             // request logger config
@@ -43,5 +49,11 @@ public class MoneyTransferApp {
             ctx.json(s.transferMoney(data));
             ctx.status(HttpStatus.OK_200);
         });
+    }
+
+    public static void stop(){
+        if(app != null){
+            app.stop();
+        }
     }
 }
