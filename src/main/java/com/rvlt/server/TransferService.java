@@ -22,6 +22,7 @@ public class TransferService {
             if(data.getFrom() == null || data.getTo() == null || data.getAmount() == null){
                 response.setStatus(Constants.RESPONSE_CODE_FAIL);
                 response.setMessage(Constants.RESPONSE_MESSAGE_FAIL);
+                return response;
             }
             // call data store/db layer for amount transfer
             AccountData.transferMoney(data.getFrom(), data.getTo(), new BigDecimal(data.getAmount()).setScale(2, RoundingMode.CEILING), response);
