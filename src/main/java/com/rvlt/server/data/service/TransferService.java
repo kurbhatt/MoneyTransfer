@@ -12,7 +12,6 @@ import com.rvlt.server.data.bean.BaseStatus;
 import com.rvlt.server.data.bean.TransferRequest;
 import com.rvlt.server.util.AppEnums;
 import com.rvlt.server.util.Constants;
-import com.rvlt.server.util.Util;
 
 public class TransferService implements Serializable {
 
@@ -74,10 +73,10 @@ public class TransferService implements Serializable {
                 return;
             }
             if(Objects.equals(accountType, AppEnums.AccountType.DEPOSITOR)){
-                response.setMessage("Depositor account not found");
+                response.setMessage(AppEnums.AccountType.DEPOSITOR.getType() + " account not found");
             }
             if(Objects.equals(accountType, AppEnums.AccountType.RECEIVER)){
-                response.setMessage("Receiver account not found");
+                response.setMessage(AppEnums.AccountType.RECEIVER.getType() + " account not found");
             }
             return;
         }
@@ -86,7 +85,7 @@ public class TransferService implements Serializable {
 
     public AccountResponse getAccountData(String id){
         AccountResponse response = new AccountResponse();
-        if(Util.isNullOrEmpty(id)){
+        if(id == null || id.isEmpty()){
             response.setStatus(Constants.RESPONSE_CODE_FAIL);
             response.setMessage("Input parameter not valid");
             return response;

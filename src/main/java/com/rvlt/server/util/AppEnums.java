@@ -3,7 +3,7 @@ package com.rvlt.server.util;
 public class AppEnums {
 
     public enum AccountType {
-        DEPOSITOR("depositor"), RECEIVER("receiver");
+        DEPOSITOR("Depositor"), RECEIVER("Receiver");
         private String type;
 
         AccountType(String type){
