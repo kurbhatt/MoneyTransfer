@@ -5,7 +5,6 @@ import com.rvlt.server.data.bean.TransferRequest;
 
 import org.eclipse.jetty.http.HttpStatus;
 
-
 import io.javalin.http.Handler;
 
 public class Controller {

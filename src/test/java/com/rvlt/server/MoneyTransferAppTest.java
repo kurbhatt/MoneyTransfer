@@ -3,7 +3,7 @@ package com.rvlt.server;
 import com.rvlt.server.data.bean.TransferRequest;
 import com.rvlt.server.util.Constants;
 
-import org.apache.http.HttpStatus;
+import org.eclipse.jetty.http.HttpStatus;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -46,7 +46,7 @@ public class MoneyTransferAppTest {
 
         Response response = request.post("/transfer");
         if(response != null){
-            Assertions.assertEquals(response.getStatusCode(), HttpStatus.SC_OK);
+            Assertions.assertEquals(response.getStatusCode(), HttpStatus.OK_200);
             Assertions.assertEquals(response.jsonPath().get("status"), Constants.RESPONSE_CODE_SUCCESS);
             Assertions.assertEquals(response.jsonPath().get("message"), Constants.RESPONSE_MESSAGE_SUCCESS);
         }
@@ -65,7 +65,7 @@ public class MoneyTransferAppTest {
 
         Response response = request.post("/transfer");
         if(response != null){
-            Assertions.assertEquals(response.getStatusCode(), HttpStatus.SC_OK);
+            Assertions.assertEquals(response.getStatusCode(), HttpStatus.OK_200);
             Assertions.assertEquals(response.jsonPath().get("status"), Constants.RESPONSE_CODE_FAIL);
             Assertions.assertEquals(response.jsonPath().get("message"), "Required parameters missing");
         }
@@ -85,7 +85,7 @@ public class MoneyTransferAppTest {
 
         Response response = request.post("/transfer");
         if(response != null){
-            Assertions.assertEquals(response.getStatusCode(), HttpStatus.SC_OK);
+            Assertions.assertEquals(response.getStatusCode(), HttpStatus.OK_200);
             Assertions.assertEquals(response.jsonPath().get("status"), Constants.RESPONSE_CODE_FAIL);
             Assertions.assertEquals(response.jsonPath().get("message"), "Depositor account not found");
         }
@@ -105,7 +105,7 @@ public class MoneyTransferAppTest {
 
         Response response = request.post("/transfer");
         if(response != null){
-            Assertions.assertEquals(response.getStatusCode(), HttpStatus.SC_OK);
+            Assertions.assertEquals(response.getStatusCode(), HttpStatus.OK_200);
             Assertions.assertEquals(response.jsonPath().get("status"), Constants.RESPONSE_CODE_FAIL);
             Assertions.assertEquals(response.jsonPath().get("message"), "Receiver account not found");
         }
@@ -125,7 +125,7 @@ public class MoneyTransferAppTest {
 
         Response response = request.post("/transfer");
         if(response != null){
-            Assertions.assertEquals(response.getStatusCode(), HttpStatus.SC_OK);
+            Assertions.assertEquals(response.getStatusCode(), HttpStatus.OK_200);
             Assertions.assertEquals(response.jsonPath().get("status"), Constants.RESPONSE_CODE_FAIL);
             Assertions.assertEquals(response.jsonPath().get("message"), "Depositor account do not have enough balance for transfer");
         }
@@ -140,7 +140,7 @@ public class MoneyTransferAppTest {
 
         Response response = request.get("/account/"+accountId);
         if(response != null){
-            Assertions.assertEquals(response.getStatusCode(), HttpStatus.SC_OK);
+            Assertions.assertEquals(response.getStatusCode(), HttpStatus.OK_200);
             Assertions.assertEquals(response.jsonPath().get("status"), Constants.RESPONSE_CODE_SUCCESS);
             Assertions.assertEquals(response.jsonPath().get("message"), Constants.RESPONSE_MESSAGE_SUCCESS);
             Assertions.assertEquals(response.jsonPath().get("account-data.accountId"), Integer.valueOf(accountId));
@@ -156,7 +156,7 @@ public class MoneyTransferAppTest {
 
         Response response = request.get("/account/"+accountId);
         if(response != null){
-            Assertions.assertEquals(response.getStatusCode(), HttpStatus.SC_INTERNAL_SERVER_ERROR);
+            Assertions.assertEquals(response.getStatusCode(), HttpStatus.INTERNAL_SERVER_ERROR_500);
             Assertions.assertEquals(response.jsonPath().get("status"), Constants.RESPONSE_CODE_FAIL);
         }
     }
@@ -170,7 +170,7 @@ public class MoneyTransferAppTest {
 
         Response response = request.get("/account/"+accountId);
         if(response != null){
-            Assertions.assertEquals(response.getStatusCode(), HttpStatus.SC_OK);
+            Assertions.assertEquals(response.getStatusCode(), HttpStatus.OK_200);
             Assertions.assertEquals(response.jsonPath().get("status"), Constants.RESPONSE_CODE_FAIL);
             Assertions.assertEquals(response.jsonPath().get("message"), "Account not found");
         }
