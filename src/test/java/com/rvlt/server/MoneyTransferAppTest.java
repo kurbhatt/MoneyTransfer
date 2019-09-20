@@ -22,7 +22,7 @@ public class MoneyTransferAppTest {
 
     @BeforeAll
     public void setUp(){
-        restAssured.port = 7000;
+        restAssured.port = Constants.APPLICATION_PORT;
         MoneyTransferApp.run();
     }
 
@@ -66,7 +66,7 @@ public class MoneyTransferAppTest {
         if(response != null){
             Assertions.assertEquals(response.getStatusCode(), 200);
             Assertions.assertEquals(response.jsonPath().get("status"), Constants.RESPONSE_CODE_FAIL);
-            Assertions.assertEquals(response.jsonPath().get("message"), Constants.RESPONSE_MESSAGE_FAIL);
+            Assertions.assertEquals(response.jsonPath().get("message"), "Required parameters missing");
         }
     }
 

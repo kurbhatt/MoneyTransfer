@@ -1,4 +1,4 @@
-package com.rvlt.server.data;
+package com.rvlt.server.data.dao;
 
 import java.math.BigDecimal;
 import java.util.Map;
@@ -17,11 +17,12 @@ public class AccountData {
         }
     }
 
-    public static void addNewAccount(Account account) throws Exception {
+    public static int addNewAccount(Account account) {
         if(getAccountMap().containsKey(account.getAccountId())){
-            throw new Exception("Account already exist");
+            return 0;
         }else{
             getAccountMap().put(account.getAccountId(), account);
+            return 1;
         }
     }
 

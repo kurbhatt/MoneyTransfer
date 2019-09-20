@@ -7,4 +7,6 @@ public class Constants {
 
     public static String RESPONSE_MESSAGE_SUCCESS = "success";
     public static String RESPONSE_MESSAGE_FAIL = "fail";
+
+    public static Integer APPLICATION_PORT = 7000;
 }

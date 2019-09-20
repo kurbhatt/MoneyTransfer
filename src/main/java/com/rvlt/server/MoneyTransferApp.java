@@ -3,7 +3,7 @@ package com.rvlt.server;
 
 import com.rvlt.server.config.PreInitializeConfig;
 import com.rvlt.server.data.bean.BaseStatus;
-import com.rvlt.server.data.bean.TransferRequest;
+import com.rvlt.server.rest.Controller;
 import com.rvlt.server.util.Constants;
 
 
@@ -20,7 +20,6 @@ public class MoneyTransferApp {
     }
 
     public static void run(){
-        TransferService s = new TransferService();
         app = Javalin.create(config -> {
             // initialize account data
             PreInitializeConfig.initializeInMemoryAccounts();
@@ -28,7 +27,7 @@ public class MoneyTransferApp {
             config.requestLogger((ctx, ms)->{
                 System.out.println(ms);
             });
-        }).start(7000);
+        }).start(Constants.APPLICATION_PORT);
         // handle runtime exception
         app.exception(Exception.class, (e, ctx) ->{
             BaseStatus response = new BaseStatus();
@@ -38,17 +37,8 @@ public class MoneyTransferApp {
             ctx.status(HttpStatus.INTERNAL_SERVER_ERROR_500);
         });
 
-        // simple get request for demonstration
-        app.get("/", ctx -> {
-            ctx.json(new Employee(10, "Keyur"));
-            s.processRequest();
-        });
         // money transfer post api
-        app.post("/transfer", ctx -> {
-            TransferRequest data = ctx.bodyAsClass(TransferRequest.class);
-            ctx.json(s.transferMoney(data));
-            ctx.status(HttpStatus.OK_200);
-        });
+        app.post("/transfer", Controller.transferAmount);
     }
 
     public static void stop(){
