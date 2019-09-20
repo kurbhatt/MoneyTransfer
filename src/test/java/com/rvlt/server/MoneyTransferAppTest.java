@@ -3,6 +3,7 @@ package com.rvlt.server;
 import com.rvlt.server.data.bean.TransferRequest;
 import com.rvlt.server.util.Constants;
 
+import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -148,7 +149,7 @@ public class MoneyTransferAppTest {
 
     @DisplayName("account-data-fail-case-cast-exception")
     @Test
-    public void failCaseAccountData(){
+    public void failCaseCastException(){
         String accountId = "abcd";
         RequestSpecification request = RestAssured.given();
         request.header("Content-Type", "application/json");
@@ -157,6 +158,21 @@ public class MoneyTransferAppTest {
         if(response != null){
             Assertions.assertEquals(response.getStatusCode(), 500);
             Assertions.assertEquals(response.jsonPath().get("status"), Constants.RESPONSE_CODE_FAIL);
+        }
+    }
+
+    @DisplayName("account-data-fail-case-wrond-account")
+    @Test
+    public void failCaseWrongAccount(){
+        String accountId = "4444";
+        RequestSpecification request = RestAssured.given();
+        request.header("Content-Type", "application/json");
+
+        Response response = request.get("/account/"+accountId);
+        if(response != null){
+            Assertions.assertEquals(response.getStatusCode(), HttpStatus.SC_OK);
+            Assertions.assertEquals(response.jsonPath().get("status"), Constants.RESPONSE_CODE_FAIL);
+            Assertions.assertEquals(response.jsonPath().get("message"), "Account not found");
         }
     }
 }

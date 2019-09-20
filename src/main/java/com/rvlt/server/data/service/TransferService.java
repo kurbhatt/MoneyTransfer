@@ -76,7 +76,7 @@ public class TransferService implements Serializable {
             if(Objects.equals(accountType, AppEnums.AccountType.DEPOSITOR)){
                 response.setMessage("Depositor account not found");
             }
-            if(Objects.equals(accountType, AppEnums.AccountType.DEPOSITOR)){
+            if(Objects.equals(accountType, AppEnums.AccountType.RECEIVER)){
                 response.setMessage("Receiver account not found");
             }
             return;
