@@ -27,18 +27,6 @@ public class AccountData {
     }
 
     public static void transferMoney(Integer from, Integer to, BigDecimal amountToBeTransfer, BaseStatus response) {
-        // check if accounts already exist else throw an error
-        if(!getAccountMap().containsKey(from)){
-            response.setStatus(Constants.RESPONSE_CODE_FAIL);
-            response.setMessage("Depositor account not found");
-            return;
-        }
-        if(!getAccountMap().containsKey(to)){
-            response.setStatus(Constants.RESPONSE_CODE_FAIL);
-            response.setMessage("Receiver account not found");
-            return;
-        }
-
         // check if balance is available or not in from/depositor account
         if(getAccountMap().get(from).getCurrentBalance().compareTo(amountToBeTransfer) < 0){
             response.setStatus(Constants.RESPONSE_CODE_FAIL);

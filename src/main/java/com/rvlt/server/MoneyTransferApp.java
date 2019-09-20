@@ -39,6 +39,7 @@ public class MoneyTransferApp {
 
         // money transfer post api
         app.post("/transfer", Controller.transferAmount);
+        app.get("/account/:id", Controller.getAccountData);
     }
 
     public static void stop(){
